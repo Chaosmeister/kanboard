@@ -237,6 +237,19 @@ class ConditionBuilder
     }
 
     /**
+     * LIKE condition
+     *
+     * @access public
+     * @param  string   $column
+     * @param  mixed    $value
+     */
+    public function notLike($column, $value)
+    {
+        $this->addCondition($this->db->escapeIdentifier($column).' NOT ' .$this->db->getDriver()->getOperator('LIKE').' ?');
+        $this->values[] = $value;
+    }
+
+    /**
      * ILIKE condition
      *
      * @access public

@@ -25,7 +25,7 @@
                 </span>
                 <?php endif ?>
 
-                <span class="board-column-title">
+                <div class="board-column-title">
                     <?php if ($not_editable) : ?>
                         <?= $this->text->e($column['title']) ?>
                     <?php else : ?>
@@ -79,7 +79,7 @@
                             </ul>
                         </span>
                     <?php endif ?>
-                </span>
+                </div>
 
                 <span class="pull-right board-column-header-task-count">
                     <?php if (! empty($column['score'])): ?>
@@ -114,8 +114,8 @@
                         <?php endif ?>
                     </span>
                 <?php endif ?>
-                        </span>
-                            <?= $this->hook->render('template:board:column:header', array('swimlane' => $swimlane, 'column' => $column)) ?>
+                </span>
+                    <?= $this->hook->render('template:board:column:header', array('swimlane' => $swimlane, 'column' => $column)) ?>
                 </span>
             </div>
         </th>
