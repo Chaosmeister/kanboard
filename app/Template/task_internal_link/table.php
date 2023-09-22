@@ -1,6 +1,10 @@
 <?php if (! empty($links)): ?>
+<?php $scoreSum = 0 ?>
 <table class="task-links-table table-striped table-scrolling">
     <?php foreach ($links as $label => $grouped_links): ?>
+        <?php foreach ($grouped_links as $link) : ?>
+            <?php $scoreSum += $link['score'] ?>
+        <?php endforeach ?>
         <?php $hide_td = false ?>
         <?php foreach ($grouped_links as $link): ?>
             <?php if (! $hide_td): ?>
@@ -11,7 +15,7 @@
                         <span class="task-links-task-count">(<?= count($grouped_links) ?>)</span>
                     </th>
                     <th class="column-10"><?= t('Assignee') ?></th>
-                    <th class="column-30"><?= t('Time tracking') ?></th>
+                    <th class="column-20"><?= t('Complexity') ?> <span class="task-links-task-count">(<?= $scoreSum ?>)</span></th>
                 </tr>
                 <?php $hide_td = true ?>
             <?php endif ?>
@@ -20,7 +24,6 @@
                 <div class="task-links-table-td">
                         <?php $link_mode = 'show' ?>
                         <?php $link_array = array() ?>
-
                         <?php if ($is_public): ?>
                             <?php $link_mode = 'readonly' ?>
                             <?php $link_array = array('task_id' => $link['task_id'], 'token' => $project['token']) ?>
@@ -38,7 +41,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            <?php endif ?>                         
+                            <?php endif ?>
                         <?php endif ?>
 
                     <div>
@@ -51,30 +54,24 @@
                             $link['is_active'] ? '' : 'task-link-closed'
                         ) ?>
 
-                        (<?php if ($link['project_id'] != $project['id']): ?><?= $this->text->e($link['project_name']) ?> - <?php endif ?><?= $this->text->e($link['column_title']) ?>)
+                                (<?php if ($link['project_id'] != $project['id']) : ?><?= $this->text->e($link['project_name']) ?> - <?php endif ?><?= $this->text->e($link['column_title']) ?>)
                     </div>
                 </div>
-            </td>
-            <td>
-                <?php if (! empty($link['task_assignee_username'])): ?>
-                    <?php if ($editable): ?>
-                        <?= $this->url->link($this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']), 'UserViewController', 'show', array('user_id' => $link['task_assignee_id'])) ?>
-                    <?php else: ?>
-                        <?= $this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']) ?>
+                </td>
+                <td>
+                    <?php if (!empty($link['task_assignee_username'])) : ?>
+                        <?php if ($editable) : ?>
+                            <?= $this->url->link($this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']), 'UserViewController', 'show', array('user_id' => $link['task_assignee_id'])) ?>
+                        <?php else : ?>
+                            <?= $this->text->e($link['task_assignee_name'] ?: $link['task_assignee_username']) ?>
+                        <?php endif ?>
                     <?php endif ?>
-                <?php endif ?>
-            </td>
-            <td>
-                <?php if (! empty($link['task_time_spent'])): ?>
-                    <?= t('%sh spent', n($link['task_time_spent'])) ?>
-                <?php endif ?>
-                <?php if (! empty($link['task_time_spent']) && ! empty($link['task_time_estimated'])): ?>/<?php endif ?>
-                <?php if (! empty($link['task_time_estimated'])): ?>
-                    <?= t('%sh estimated', n($link['task_time_estimated'])) ?>
-                <?php endif ?>
-            </td>
-        </tr>
+                </td>
+                <td>
+                    <?= $link['score'] ?>
+                </td>
+            </tr>
+            <?php endforeach ?>
         <?php endforeach ?>
-    <?php endforeach ?>
-</table>
+    </table>
 <?php endif ?>

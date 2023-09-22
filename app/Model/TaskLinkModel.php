@@ -112,6 +112,7 @@ class TaskLinkModel extends Base
                         TaskModel::TABLE.'.time_spent AS task_time_spent',
                         TaskModel::TABLE.'.time_estimated AS task_time_estimated',
                         TaskModel::TABLE.'.owner_id AS task_assignee_id',
+                        TaskModel::TABLE.'.score',
                         UserModel::TABLE.'.username AS task_assignee_username',
                         UserModel::TABLE.'.name AS task_assignee_name',
                         ColumnModel::TABLE.'.title AS column_title',

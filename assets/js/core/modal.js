@@ -1,13 +1,21 @@
 (function () {
     var isOpen = false;
     var isFormDirty = false;
+    var isMouseDownOnForm = false;
+
+    function onFormMouseDown(e) {
+        isMouseDownOnForm = true;
+    }
 
     function onOverlayClick(e) {
-        if (e.target.matches('#modal-overlay') && isFormDirty === false) {
-            e.stopPropagation();
-            e.preventDefault();
-            destroy();
+        if (!isMouseDownOnForm) {
+            if (e.target.matches('#modal-overlay') && isFormDirty === false) {
+                e.stopPropagation();
+                e.preventDefault();
+                destroy();
+            }
         }
+        isMouseDownOnForm = false;
     }
 
     function onCloseButtonClick() {
@@ -119,6 +127,7 @@
             .build();
 
         if (overlayClickDestroy) {
+            boxElement.addEventListener('mousedown', onFormMouseDown, false);
             overlayElement.addEventListener('click', onOverlayClick, false);
         }
 
