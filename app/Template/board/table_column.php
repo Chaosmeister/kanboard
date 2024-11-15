@@ -1,9 +1,20 @@
 <!-- column titles -->
 
+<?php $counter = 0;?>
+
 <?= $this->hook->render('template:board:table:column:before-header-row', array('swimlane' => $swimlane)) ?>
 
 <tr class="board-swimlane-columns-<?= $swimlane['id'] ?>">
     <?php foreach ($swimlane['columns'] as $column) : ?>
+
+        <?php
+            $counter++;
+
+            if ($project['id'] == 11 && $counter > 3 && empty($column['tasks'])){
+                continue;
+            }
+        ?>
+
         <th class="board-column-header board-column-header-<?= $column['id'] ?>" data-column-id="<?= $column['id'] ?>">
 
             <!-- column in collapsed mode -->
