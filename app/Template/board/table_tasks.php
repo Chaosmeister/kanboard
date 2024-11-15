@@ -1,6 +1,18 @@
 <!-- task row -->
+ 
+<?php $counter = 0;?>
+
 <tr class="board-swimlane board-swimlane-tasks-<?= $swimlane['id'] ?><?= $swimlane['task_limit'] && $swimlane['nb_tasks'] > $swimlane['task_limit'] ? ' board-task-list-limit' : '' ?>">
     <?php foreach ($swimlane['columns'] as $column): ?>
+        
+        <?php
+            $counter++;
+
+            if ($project['id'] == 11 && $counter > 3 && empty($column['tasks'])){
+                continue;
+            }
+        ?>
+
         <td class="
             board-column-<?= $column['id'] ?>
             <?= $column['task_limit'] > 0 && $column['column_nb_open_tasks'] > $column['task_limit'] ? 'board-task-list-limit' : '' ?>
