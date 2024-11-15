@@ -10,7 +10,7 @@
         <?php
             $counter++;
 
-            if ($project['id'] == 11 && $counter > 3 && empty($column['tasks'])){
+            if ($column['project_id'] == 11 && $counter > 3 && empty($column['tasks'])){
                 continue;
             }
         ?>
