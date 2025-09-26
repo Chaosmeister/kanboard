@@ -1,6 +1,6 @@
 <!-- column titles -->
 
-<?php $counter = 0;?>
+<?php $counter = 0; ?>
 
 <?= $this->hook->render('template:board:table:column:before-header-row', array('swimlane' => $swimlane)) ?>
 
@@ -8,11 +8,11 @@
     <?php foreach ($swimlane['columns'] as $column) : ?>
 
         <?php
-            $counter++;
+        $counter++;
 
-            if ($column['project_id'] == 11 && $counter > 3 && empty($column['tasks'])){
-                continue;
-            }
+        if ($column['project_id'] == 11 && $counter > 5 && empty($column['tasks'])) {
+            continue;
+        }
         ?>
 
         <th class="board-column-header board-column-header-<?= $column['id'] ?>" data-column-id="<?= $column['id'] ?>">
@@ -31,9 +31,9 @@
                 <?php endif ?>
 
                 <?php if ($swimlane['nb_swimlanes'] > 1 && $column['nb_tasks'] > 0): ?>
-                <span title="<?= t('Task count') ?>">
-                    (<span id="task-number-column-<?= $column['id'] ?>"><span class="ui-helper-hidden-accessible"><?= t('Task count') ?> </span><?= $column['nb_tasks'] ?></span>)
-                </span>
+                    <span title="<?= t('Task count') ?>">
+                        (<span id="task-number-column-<?= $column['id'] ?>"><span class="ui-helper-hidden-accessible"><?= t('Task count') ?> </span><?= $column['nb_tasks'] ?></span>)
+                    </span>
                 <?php endif ?>
 
                 <div class="board-column-title">
@@ -124,7 +124,7 @@
                         <span><span class="ui-helper-hidden-accessible"><?= t('Task count') ?> </span><?= $column['nb_tasks'] ?></span>&nbsp;
                     </span>
                 <?php endif ?>
-        
+
                 <?php if (!empty($column['nb_unfiltered_tasks_across_swimlane'])) : ?>
                     <span title="<?= t('Total number of tasks in this column across all swimlanes') ?>">
                         <?php if ($column['task_limit'] > 0) : ?>
